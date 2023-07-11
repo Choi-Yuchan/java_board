@@ -3,10 +3,13 @@ package java_board;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.LinkedList;
+import java.util.List;
 
 public class BoardServer {
 
 	public static void main(String[] args) {
+		List list = new LinkedList<>();
 
 		ServerSocket serverSocket = null;
 
@@ -25,4 +28,9 @@ public class BoardServer {
 		}
 	}
 
+}
+
+class ListItem{
+	String title, date, contents, writer;
+	
 }
