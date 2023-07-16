@@ -12,10 +12,12 @@ import cyc.board.thread.ClientHandler;
 public class BoardServer {
     private List<Post> posts;
     private int nextId;
+    private static ClientHandler clientHandler;
 
     public BoardServer() {
         posts = new ArrayList<>();
         nextId = 1;
+        clientHandler = null;
     }
 
     public void run() {
@@ -27,7 +29,11 @@ public class BoardServer {
                 System.out.println("클라이언트가 연결되었습니다.");
 
                 ClientHandler clientHandler = new ClientHandler(clientSocket, this);
-                clientHandler.start();
+
+                if (clientHandler == null || !clientHandler.isAlive()) {
+                    clientHandler = new ClientHandler(clientSocket, this);
+                    clientHandler.start();
+                }
             }
         } catch (IOException e) {
             System.err.println("서버 오류: " + e.getMessage());
@@ -54,7 +60,7 @@ public class BoardServer {
         }
         return null;
     }
-
+    
     public static void main(String[] args) {
         BoardServer server = new BoardServer();
         server.run();
