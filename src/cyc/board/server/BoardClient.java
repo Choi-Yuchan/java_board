@@ -15,6 +15,11 @@ public class BoardClient {
 
             BoardHandler boardHandler = new BoardHandler(socket);
             boardHandler.start();
+            try {
+				BoardService.main(null);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
         } catch (IOException e) {
             e.printStackTrace();
         }
